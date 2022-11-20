@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Hola mundo</h1>
-    <button @click="saludar" class="btn red"><i class="material-icons">save</i></button>
+  <div class="row">
   </div>
 </template>
 
@@ -16,6 +14,12 @@ export default {
         html: 'Soy un toast'
       })
     }
+  },
+  mounted() {
+    this.axios.get('https://prueba.com/')
+      .then(() => {
+
+      });
   }
 }
 </script>
