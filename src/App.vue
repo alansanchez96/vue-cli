@@ -1,15 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>Hola mundo</h1>
+    <button @click="saludar" class="btn red"><i class="material-icons">save</i></button>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Materialize from 'materialize-css';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  methods: {
+    saludar() {
+      Materialize.toast({
+        html: 'Soy un toast'
+      })
+    }
   }
 }
 </script>
