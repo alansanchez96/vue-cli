@@ -51,7 +51,7 @@
               <ul>
                 <li v-for="hobbie in hobbies" v-bind:key="hobbie">
                   {{ hobbie.id }} - {{ hobbie.descripcion }}
-                  <a href="#"><i class="material-icons">close</i></a>
+                  <a href="#" @click="hobbies.splice(index, 1)"><i class="material-icons">close</i></a>
                 </li>
               </ul>
             </div>
@@ -89,7 +89,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in users" v-bind:key="user">
+            <tr v-for="(user, index) in users" v-bind:key="user">
               <td>{{ user.name }}</td>
               <td>{{ user.lastname }}</td>
               <td>{{ user.email }}</td>
@@ -104,7 +104,7 @@
               </td>
               <td><label><input type="checkbox" disabled v-model="user.suscription"><span></span></label></td>
               <td><a href="#"><i class="material-icons">create</i></a></td>
-              <td><a href="#"><i class="material-icons">delete</i></a></td>
+              <td><a href="#" @click="deleteRegister(index)"><i class="material-icons">delete</i></a></td>
             </tr>
           </tbody>
         </table>
@@ -200,6 +200,10 @@ export default {
 
       this.hobbies.push(data);
       this.hobbie = '';
+    },
+    deleteRegister(index) {
+      if (!confirm('¿Desea eliminar este registro?')) return;
+      this.users.splice(index, 1);
     }
   }
 }
