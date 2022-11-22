@@ -65,7 +65,8 @@
         </div>
         <div class="row">
           <div class="col m4">
-            <button class="btn indigo">Agregar Usuario <i class="material-icons">add_circle</i></button>
+            <button class="btn indigo">{{ (indice == -1 ? 'Agregar' : 'Actualizar') }} Usuario <i
+                class="material-icons">add_circle</i></button>
           </div>
         </div>
 
@@ -89,7 +90,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(user, index) in users" v-bind:key="user">
+            <tr v-for="(user, index) in users" v-bind:key="user"
+              v-bind:class="{ 'indigo darken-4 white-text': index == indice }">
               <td>{{ user.name }}</td>
               <td>{{ user.lastname }}</td>
               <td>{{ user.email }}</td>
@@ -103,7 +105,7 @@
                 </ul>
               </td>
               <td><label><input type="checkbox" disabled v-model="user.suscription"><span></span></label></td>
-              <td><a href="#"><i class="material-icons">create</i></a></td>
+              <td><a href="#" @click="editar(index)"><i class="material-icons">create</i></a></td>
               <td><a href="#" @click="deleteRegister(index)"><i class="material-icons">delete</i></a></td>
             </tr>
           </tbody>
@@ -120,6 +122,7 @@ export default {
   name: 'App',
   data() {
     return {
+      indice: -1,
       name: '',
       lastname: '',
       email: '',
@@ -175,8 +178,13 @@ export default {
         hobbies: this.hobbies
       }
 
-      this.users.push(data);
+      if (this.indice == -1) {
+        this.users.push(data);
+      } else {
+        this.users[this.indice] = data;
+      }
 
+      this.indice = -1;
       this.name = '';
       this.lastname = '';
       this.email = '';
@@ -204,6 +212,17 @@ export default {
     deleteRegister(index) {
       if (!confirm('¿Desea eliminar este registro?')) return;
       this.users.splice(index, 1);
+    },
+    editar(index) {
+      let user = this.users[index];
+      this.indice = index;
+      this.name = user.name;
+      this.lastname = user.lastname;
+      this.email = user.email;
+      this.years = user.years;
+      this.estado_civil = user.estado_civil;
+      this.suscription = user.suscription;
+      this.hobbies = user.hobbies;
     }
   }
 }
